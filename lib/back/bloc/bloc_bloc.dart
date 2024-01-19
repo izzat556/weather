@@ -1,10 +1,16 @@
+
+
+// ignore_for_file: invalid_use_of_visible_for_testing_member, unused_local_variable
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled4/bloc/event.dart';
-import 'package:untitled4/bloc/state.dart';
 
-import '../Weather.dart';
-import '../repoository.dart';
+
+import 'package:wheather_app/back/model/weather.dart';
+
+import '../model/repositroy.dart';
+import 'bloc_event.dart';
+import 'bloc_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState>{
   WeatherBloc() : super(InfoLoadingState()){
@@ -15,12 +21,12 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState>{
 
       //print(json.data["data"]["aqi"]);
 
-
+    //   Dio dio = Dio();
+    // Response jsonResponse = await dio.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/}?key=SHJZUGQYYEGS642LENZR7SW5H");
+    // Weather response = Weather.fromJson(jsonResponse.data);
       Weather response = await PostRepository().fetch();
       print(response.days?.first.datetime);
       emit(InfoLoadedState(response));
     });
   }
 }
-
-//https://api.waqi.info/feed/here/?token=9286515c79b92b479c1ea9bdb8b4d261107f7e3c

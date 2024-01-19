@@ -1,7 +1,10 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 
-import 'Weather.dart';
+
+import 'weather.dart';
 
 class PostRepository{
 
@@ -15,7 +18,7 @@ class PostRepository{
   Future<Weather> fetch() async {
     var current = await getPosition();
     Dio dio = Dio();
-    Response jsonResponse = await dio.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/tashkent?key=SHJZUGQYYEGS642LENZR7SW5H");
+    Response jsonResponse = await dio.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${current.latitude},${current.longitude}?key=SHJZUGQYYEGS642LENZR7SW5H");
     Weather response = Weather.fromJson(jsonResponse.data);
      return response;
 }

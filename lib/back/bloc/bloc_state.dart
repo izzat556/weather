@@ -1,5 +1,6 @@
 
-import '../Weather.dart';
+
+import '../model/weather.dart';
 
 abstract class WeatherState{}
 
@@ -12,4 +13,3 @@ class InfoLoadedState extends WeatherState{
 
   InfoLoadedState(this.response);
 }
-
