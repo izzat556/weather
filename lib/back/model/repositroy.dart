@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable
 
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
