@@ -1,16 +1,16 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:wheather_app/back/bloc/bloc_bloc.dart';
 import 'package:wheather_app/back/bloc/bloc_event.dart';
 import 'package:wheather_app/back/model/weather.dart';
+
 import 'package:wheather_app/uii/constructor.dart';
 
 class MyWidget extends StatelessWidget {
-  MyWidget({Key? key, required this.weather, required this.AIQ,
-  required this.Name});
+  MyWidget(
+      {Key? key, required this.weather, required this.AIQ, required this.Name});
   final Weather weather;
   final int AIQ;
   final String Name;
@@ -23,52 +23,109 @@ class MyWidget extends StatelessWidget {
       Weather_Constructor(
         data: "05:00",
         imagepath: "assets/images/${weather.days?.first.icon}.png",
-        temp: "${((weather.days!.first.tempmin!-32)*5/9).toInt()}",
-
-        week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[0].datetime}")),
+        temp: "${((weather.days!.first.tempmin! - 32) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[0].datetime}")),
       ),
       Weather_Constructor(
-          data: "12:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmax!-32)*5/9).toInt()}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[1].datetime}")),
+        data: "12:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmax! - 32) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[1].datetime}")),
       ),
       Weather_Constructor(
-          data: "16:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${(((((weather.days!.first.tempmax! + weather.days!.first.tempmin!)/2)-32)*5/9).toInt())}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[2].datetime}")),
+        data: "16:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp:
+            "${(((((weather.days!.first.tempmax! + weather.days!.first.tempmin!) / 2) - 32) * 5 / 9).toInt())}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[2].datetime}")),
       ),
       Weather_Constructor(
-          data: "21:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[3].datetime}")),
+        data: "21:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmin! - 30) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[3].datetime}")),
       ),
       Weather_Constructor(
-          data: "21:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[4].datetime}")),
+        data: "21:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmin! - 30) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[4].datetime}")),
       ),
       Weather_Constructor(
-          data: "21:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[5].datetime}")),
+        data: "21:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmin! - 30) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[5].datetime}")),
       ),
       Weather_Constructor(
-          data: "21:00",
-          imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
-          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[6].datetime}")),
+        data: "21:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmin! - 30) * 5 / 9).toInt()}",
+        week_day: DateFormat('EEEE')
+            .format(DateTime.parse("${weather.days?[6].datetime}")),
       ),
     ];
+
+    void _showdialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 150,
+              child: Image.asset(
+                'assets/images/aiq.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    void _showDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 200,
+              child: Image.asset(
+                'assets/images/uvv.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
         edgeOffset: 0,
-        onRefresh: ()async{
+        onRefresh: () async {
           await Future<void>.delayed(const Duration(seconds: 3));
           BlocProvider.of<WeatherBloc>(context).add(LoadInfo());
         },
@@ -87,7 +144,9 @@ class MyWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Image.asset(
                     "assets/images/img_weather_10_18_231x244.png",
                     scale: 3,
@@ -157,7 +216,8 @@ class MyWidget extends StatelessWidget {
                               width: 60,
                             ),
                             Text(
-                              "${(weather.days?[0].datetime)?.substring(8, 10)},""${DateFormat('MMMM').format(DateTime.parse("${weather.days?[1].datetime}"))}",
+                              "${(weather.days?[0].datetime)?.substring(8, 10)},"
+                              "${DateFormat('MMMM').format(DateTime.parse("${weather.days?[1].datetime}"))}",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             )
@@ -199,7 +259,7 @@ class MyWidget extends StatelessWidget {
                                           width: 10,
                                         ),
                                         Text(
-                                            "${CurrentWeather[index].data}",
+                                          "${CurrentWeather[index].data}",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15),
@@ -307,7 +367,7 @@ class MyWidget extends StatelessWidget {
                                             height: 20,
                                           ),
                                           Text(
-                                            "${((weather.days![index].temp!-32)*5/9).toInt()}°C",
+                                            "${((weather.days![index].temp! - 32) * 5 / 9).toInt()}°C",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20),
@@ -323,7 +383,8 @@ class MyWidget extends StatelessWidget {
                                             width: 10,
                                           ),
                                           Text(
-                                            "${(weather.days?[index].datetime)?.substring(8, 10)} ""${CurrentWeather[index].week_day}",
+                                            "${(weather.days?[index].datetime)?.substring(8, 10)} "
+                                            "${CurrentWeather[index].week_day}",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
@@ -419,7 +480,7 @@ class MyWidget extends StatelessWidget {
                               children: [
                                 TextButton(
                                     onPressed: () {
-
+                                      _showdialog();
                                     },
                                     child: Text(
                                       'See more',
@@ -432,7 +493,9 @@ class MyWidget extends StatelessWidget {
                                   padding: const EdgeInsets.only(right: 20),
                                   child: IconButton(
                                     iconSize: 30,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _showdialog();
+                                    },
                                     icon: Icon(
                                       Icons.arrow_right,
                                       color: Colors.white,
@@ -522,7 +585,7 @@ class MyWidget extends StatelessWidget {
                           width: 15,
                         ),
                         Container(
-                          height: 130,
+                          height: 150,
                           width: 150,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -556,29 +619,36 @@ class MyWidget extends StatelessWidget {
                                       size: 20,
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: 15,
                                     ),
                                     Text(
                                       "UV INDEX",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                            SizedBox(height: 10,),
                               Text(
                                 "${(weather.days?[0].uvindex)?.toInt()}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 25),
                               ),
-                              Text(
-                                "Moderate",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              )
+                              Center(
+                                child: TextButton(
+                                    onPressed: () {
+                                      _showDialog();
+                                    },
+                                    child: Text(
+                                      "See more >",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15
+                                      ),
+                                    )),
+                              ),
+                                  SizedBox(height: 15,),
                             ],
                           ),
                         ),
@@ -586,7 +656,7 @@ class MyWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                 ],
               ),

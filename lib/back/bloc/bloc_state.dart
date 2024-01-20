@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: non_constant_identifier_names
+
 import '../model/weather.dart';
 
 abstract class WeatherState{}

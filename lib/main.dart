@@ -1,36 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:flutter/scheduler.dart';
-// import 'package:wheather_app/ui/presentation/iphone_13_pro_max_two_screen/iphone_13_pro_max_two_screen.dart';
-// import 'ui/core/app_export.dart';
-
-// var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
-// void main() {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//   ]);
-
-//   ///Please update theme as per your need if required.
-//   ThemeHelper().changeTheme('primary');
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Sizer(
-//       builder: (context, orientation, deviceType) {
-//         return MaterialApp(
-//           theme: theme,
-//         home: Iphone13ProMaxTwoScreen(),  
-//         );
-        
-//       },
-//     );
-//   }
-// }
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
