@@ -155,7 +155,7 @@ class MyWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "${((weather.days!.first.temp! - 32) * 5 / 9).toInt()}°",
+                    "${((weather.currentConditions!.temp! - 32) * 5 / 9).toInt()}°",
                     style: TextStyle(fontSize: 40, color: Colors.white),
                   ),
                   Column(
