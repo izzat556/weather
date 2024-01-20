@@ -98,7 +98,7 @@ class MyHomePage extends StatefulWidget {
                   
                 }
                 else if(state is InfoLoadedState){
-                  return MyWidget(weather: state.response,);
+                  return MyWidget(weather: state.response, AIQ: state.AIQ,Name: state.Name,);
               
                 }
                 else{

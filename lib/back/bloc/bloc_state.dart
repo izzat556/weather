@@ -9,7 +9,9 @@ class InfoLoadingState extends WeatherState{}
 
 
 class InfoLoadedState extends WeatherState{
-  late Weather response ;
+  late Weather response;
+  late int AIQ;
+  late String Name;
 
-  InfoLoadedState(this.response);
+  InfoLoadedState(this.response, this.AIQ, this.Name);
 }

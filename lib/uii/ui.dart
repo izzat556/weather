@@ -1,18 +1,53 @@
-// ignore_for_file: must_be_immutable, division_optimization
+
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wheather_app/back/bloc/bloc_bloc.dart';
+import 'package:wheather_app/back/bloc/bloc_event.dart';
 import 'package:wheather_app/back/model/weather.dart';
+import 'package:wheather_app/uii/constructor.dart';
 
 class MyWidget extends StatelessWidget {
-  MyWidget({Key? key, required this.weather});
+  MyWidget({Key? key, required this.weather, required this.AIQ,
+  required this.Name});
   final Weather weather;
+  final int AIQ;
+  final String Name;
 
   @override
   Widget build(BuildContext context) {
+    String? sunrise = weather.days?[0].sunrise;
+    String? sunset = weather.days?[0].sunset;
+    List CurrentWeather = [
+      Weather_Constructor(
+        data: "05:00",
+        imagepath: "assets/images/${weather.days?.first.icon}.png",
+        temp: "${((weather.days!.first.tempmin!-32)*5/9).toInt()}"
+      ),
+      Weather_Constructor(
+          data: "12:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${((weather.days!.first.tempmax!-32)*5/9).toInt()}"
+      ),
+      Weather_Constructor(
+          data: "16:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${(((((weather.days!.first.tempmax! + weather.days!.first.tempmin!)/2)-32)*5/9).toInt())}"
+      ),
+      Weather_Constructor(
+          data: "21:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}"
+      ),
+    ];
+
     return RefreshIndicator(
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
         edgeOffset: 0,
-        onRefresh: _onRefresh,
+        onRefresh: ()async{
+          await Future<void>.delayed(const Duration(seconds: 3));
+          BlocProvider.of<WeatherBloc>(context).add(LoadInfo());
+        },
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
@@ -124,7 +159,7 @@ class MyWidget extends StatelessWidget {
                                           height: 20,
                                         ),
                                         Text(
-                                          "fdsdf",
+                                          "${CurrentWeather[index].temp}°C",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15),
@@ -133,14 +168,14 @@ class MyWidget extends StatelessWidget {
                                           width: 10,
                                         ),
                                         Image.asset(
-                                          "assets/images/img_moon_cloud_mid_rain.png",
-                                          scale: 2,
+                                          CurrentWeather[index].imagepath,
+                                          scale: 6,
                                         ),
                                         SizedBox(
                                           width: 10,
                                         ),
                                         Text(
-                                          "huiguy",
+                                            "${CurrentWeather[index].data}",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15),
@@ -167,7 +202,7 @@ class MyWidget extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    "${weather.address}",
+                    Name,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                   SizedBox(
@@ -248,7 +283,7 @@ class MyWidget extends StatelessWidget {
                                             height: 20,
                                           ),
                                           Text(
-                                            "csdjfabdjfvb",
+                                            "${((weather.days![index+1].temp!-32)*5/9).toInt()}°",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20),
@@ -257,14 +292,14 @@ class MyWidget extends StatelessWidget {
                                             width: 10,
                                           ),
                                           Image.asset(
-                                            "assets/images/img_moon_cloud_mid_rain.png",
-                                            scale: 2,
+                                            "assets/images/${weather.days?[index+1].icon}.png",
+                                            scale: 6,
                                           ),
                                           SizedBox(
                                             width: 10,
                                           ),
                                           Text(
-                                            "adjabfa",
+                                            "${weather.days?[index+1].datetime}",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
@@ -334,7 +369,7 @@ class MyWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 25),
                             child: Text(
-                              "3-Low Health Risk ",
+                              "${AIQ}",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 30,
@@ -359,7 +394,9 @@ class MyWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                    },
                                     child: Text(
                                       'See more',
                                       style: TextStyle(
@@ -442,7 +479,7 @@ class MyWidget extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                "5:28 AM",
+                                "${sunrise?.substring(0, 5)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 25),
                               ),
@@ -450,7 +487,7 @@ class MyWidget extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                "Sunset: 7:25PM",
+                                "Sunset: ${sunset?.substring(0, 5)}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               )
@@ -509,7 +546,7 @@ class MyWidget extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                "4",
+                                "${(weather.days?[0].uvindex)?.toInt()}",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 25),
                               ),
@@ -534,9 +571,5 @@ class MyWidget extends StatelessWidget {
         ));
   }
 
-  Future<void> _onRefresh() {
-    return Future.delayed(
-      Duration(seconds: 2),
-    );
-  }
+
 }

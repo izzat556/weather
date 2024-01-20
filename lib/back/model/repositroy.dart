@@ -1,4 +1,3 @@
-// ignore_for_file: unused_local_variable
 
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,6 +21,16 @@ class PostRepository{
     Weather response = Weather.fromJson(jsonResponse.data);
      return response;
 }
+  Future<int> getAIQ()async{
+    var current = await getPosition();
+    var json = await Dio().get("https://api.weatherapi.com/v1/forecast.json?key=b765a7c112e04e19b99191816241501&q=${current.latitude},${current.longitude}&days=1&aqi=yes&alerts=no");
+    return json.data["current"]["air_quality"]["gb-defra-index"];
+  }
+  Future<String> getName()async{
+    var current = await getPosition();
+    var json = await Dio().get("https://api.weatherapi.com/v1/forecast.json?key=b765a7c112e04e19b99191816241501&q=${current.latitude},${current.longitude}&days=1&aqi=yes&alerts=no");
+    return json.data["location"]["region"];
+  }
 }
 
 //https://api.openweathermap"
