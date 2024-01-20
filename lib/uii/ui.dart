@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:wheather_app/back/bloc/bloc_bloc.dart';
 import 'package:wheather_app/back/bloc/bloc_event.dart';
 import 'package:wheather_app/back/model/weather.dart';
@@ -22,22 +23,45 @@ class MyWidget extends StatelessWidget {
       Weather_Constructor(
         data: "05:00",
         imagepath: "assets/images/${weather.days?.first.icon}.png",
-        temp: "${((weather.days!.first.tempmin!-32)*5/9).toInt()}"
+        temp: "${((weather.days!.first.tempmin!-32)*5/9).toInt()}",
+
+        week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[0].datetime}")),
       ),
       Weather_Constructor(
           data: "12:00",
           imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmax!-32)*5/9).toInt()}"
+          temp: "${((weather.days!.first.tempmax!-32)*5/9).toInt()}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[1].datetime}")),
       ),
       Weather_Constructor(
           data: "16:00",
           imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${(((((weather.days!.first.tempmax! + weather.days!.first.tempmin!)/2)-32)*5/9).toInt())}"
+          temp: "${(((((weather.days!.first.tempmax! + weather.days!.first.tempmin!)/2)-32)*5/9).toInt())}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[2].datetime}")),
       ),
       Weather_Constructor(
           data: "21:00",
           imagepath: "assets/images/${weather.days?.first.icon}.png",
-          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}"
+          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[3].datetime}")),
+      ),
+      Weather_Constructor(
+          data: "21:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[4].datetime}")),
+      ),
+      Weather_Constructor(
+          data: "21:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[5].datetime}")),
+      ),
+      Weather_Constructor(
+          data: "21:00",
+          imagepath: "assets/images/${weather.days?.first.icon}.png",
+          temp: "${((weather.days!.first.tempmin! -30)*5/9).toInt()}",
+          week_day: DateFormat('EEEE').format(DateTime.parse("${weather.days?[6].datetime}")),
       ),
     ];
 
@@ -133,7 +157,7 @@ class MyWidget extends StatelessWidget {
                               width: 60,
                             ),
                             Text(
-                              "${weather.days?.first.datetime}",
+                              "${(weather.days?[0].datetime)?.substring(8, 10)},""${DateFormat('MMMM').format(DateTime.parse("${weather.days?[1].datetime}"))}",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             )
@@ -283,7 +307,7 @@ class MyWidget extends StatelessWidget {
                                             height: 20,
                                           ),
                                           Text(
-                                            "${((weather.days![index+1].temp!-32)*5/9).toInt()}°",
+                                            "${((weather.days![index].temp!-32)*5/9).toInt()}°C",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20),
@@ -292,14 +316,14 @@ class MyWidget extends StatelessWidget {
                                             width: 10,
                                           ),
                                           Image.asset(
-                                            "assets/images/${weather.days?[index+1].icon}.png",
+                                            "assets/images/${weather.days?[index].icon}.png",
                                             scale: 6,
                                           ),
                                           SizedBox(
                                             width: 10,
                                           ),
                                           Text(
-                                            "${weather.days?[index+1].datetime}",
+                                            "${(weather.days?[index].datetime)?.substring(8, 10)} ""${CurrentWeather[index].week_day}",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),

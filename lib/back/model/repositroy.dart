@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 
 import 'weather.dart';
@@ -20,6 +21,16 @@ class PostRepository{
     Dio dio = Dio();
     Response jsonResponse = await dio.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${current.latitude},${current.longitude}?key=SHJZUGQYYEGS642LENZR7SW5H");
     Weather response = Weather.fromJson(jsonResponse.data);
+    String dateString = '2024-01-19';
+
+    // Parsing the string to create a DateTime object
+    DateTime date = DateTime.parse(dateString);
+
+    // Formatting the date to get the day of the week
+    String dayOfWeekString = DateFormat('EEEE').format(date);
+
+    // Printing the result
+    print('$dateString is a $dayOfWeekString.');
      return response;
 }
   Future<int> getAIQ()async{
